@@ -8,6 +8,13 @@ module.exports = {
         filename: 'bundle.js',
         path: __dirname + '/dist'
     },
+    resolve: {
+        modules: ['node_modules'],
+        alias: {
+            material_css: 'angular-material/angular-material.css',
+            md_data_table: 'angular-material-data-table/dist/'
+        }
+    },
     module: {
         rules: [
             {

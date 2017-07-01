@@ -9,7 +9,8 @@ export default (() => {
             controller        
     };
 
-    return module('app.dashboard', [dashboardService])
+    return module('app.dashboard', [])
         .component('dashboard', dashboard)
+        .service('dashboardService', dashboardService)
         .name;
 })();

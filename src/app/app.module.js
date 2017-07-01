@@ -4,5 +4,5 @@ import core from './core/core.module';
 
 module('app', [
     core,
-    modules
+    modules,
 ]);

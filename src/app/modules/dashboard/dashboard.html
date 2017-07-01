@@ -1,3 +1,148 @@
-<div>
-    Hi there
+<div layout='column'>
+    <!--Header-->
+    <header layout="row" flex>
+        <md-content layout="row" flex>
+            <md-toolbar layout="row" flex>
+                <h1 class="md-title" flex><a href="#!/" class="md-button">Hotel ABC</a></h1>
+            </md-toolbar>
+        </md-content>
+    </header>
+    <!--Buttons-->
+    <section layout="row" layout-margin flex>
+        <md-button aria-label="Incluir Hospede" class="md-primary md-raised" ng-click="$ctrl.showForm = true">Incluir Hospede</md-button>
+    </section>
+
+    <!--Form Person-->
+    <section layout="row" ng-show="$ctrl.showForm" layout-margin flex>
+        <ng-form md-whiteframe="5" layout="column" flex="50" name="pessoaForm">
+            
+            <md-toolbar class="md-primary" flex="5">
+                <h2 class="md-toolbar-tools">Cadastro de Pessoa</h2>
+            </md-toolbar>
+            
+            <div layout="column" layout-margin flex>
+                <md-input-container flex>
+                    <label>Nome</label>
+                    <input type="text" name="pessoa.nome" ng-model="$ctrl.pessoa.nome" required>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Documento</label>
+                    <input type="text" name="pessoa.documento" ng-model="$ctrl.pessoa.documento" required>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Telefone</label>
+                    <input type="text" name="pessoa.telefone" ng-model="$ctrl.pessoa.telefone" required>
+                </md-input-container>
+
+                <div layout="row" flex="20">
+                    <md-button type="submit" class="md-raised md-primary" ng-click="$ctrl.salvarPessoa($ctrl.pessoa)" flex>Incluir</md-button>
+                    <md-button class="md-raised" ng-click="$ctrl.resetarFormPessoa()" flex>Cancelar</md-button>
+                </div>
+            </div>
+        </ng-form>
+    </section>
+
+    <!--Search-->
+    <section layout="row" layout-margin flex>
+        <div md-whiteframe="5" layout="column" flex="50">
+            <md-toolbar class="md-primary">
+                <h2 class="md-toolbar-tools">Consulta</h2>
+            </md-toolbar>
+
+            <div layout="row" layout-margin flex="10">
+                <md-input-container flex>
+                    <md-checkbox ng-model="$ctrl.listarPresentes" ng-change="$ctrl.filtrarPessoasPresentes($ctrl.listarPresentes)" aria-label="Listar Presentes">
+                        Pessoas ainda presentes
+                    </md-checkbox>
+                </md-input-container>
+                <md-input-container flex>
+                    <md-checkbox ng-model="$ctrl.listarAusentes" ng-change="$ctrl.filtrarPessoasAusentes($ctrl.listarAusentes)" aria-label="Listar Ausentes">
+                        Pessoas que ja deixaram o hotel
+                    </md-checkbox>
+                </md-input-container>
+            </div>
+
+            <div layout="row" layout-margin flex="10" >
+                <md-input-container flex>
+                    <label>Pessoa</label>
+                    <input type="text" name="nome" ng-model="$ctrl.pessoaFiltrada" ng-change="$ctrl.filtrarPessoas($ctrl.pessoaFiltrada)">
+                </md-input-container>
+            </div>
+
+            <div layout="column" layout-margin flex>
+                <md-table-container>
+                    <table md-table>
+                        <thead md-head>
+                            <tr md-row>
+                                <th md-column>Nome</th>
+                                <th md-column>Documento</th>
+                                <th md-column>Valor Gasto</th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row ng-click="$ctrl.bindPessoaSelecionada(pessoa)" ng-repeat="pessoa in $ctrl.pessoas">
+                                <td md-cell>{{pessoa.nome}}</td>
+                                <td md-cell>{{pessoa.documento}}</td>
+                                <td md-cell>{{$ctrl.calculaValorGasto(pessoa.checkIn) | currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+                <md-table-pagination  md-label="{page: 'Página:', rowsPerPage: 'Linhas por página:', of: 'de'}" md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{desserts.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>
+            </div>
+        </div>
+    </section>
+    
+
+    <!--Form checkIn-->
+    <section layout="row" layout-margin flex>
+        <ng-form md-whiteframe="5" layout="column" flex="50" name="checkInForm">
+            
+            <md-toolbar class="md-primary">
+                <h2 class="md-toolbar-tools">Check In</h2>
+            </md-toolbar>
+            
+            <div layout="column" layout-margin flex>
+                
+                <div layout="row" layout-align="space-around" flex>
+                    <md-input-container flex>
+                        <label>Data Entrada</label>
+                        <input type="datetime-local" 
+                                name="checkIn.dataEntrada" 
+                                ng-model="$ctrl.pessoaCheckIn.checkIn.dataEntrada"
+                                ng-disabled="!$ctrl.pessoaCheckIn.nome">
+                    </md-input-container>
+
+                    <md-input-container flex>
+                        <label>Data Saida</label>
+                        <input type="datetime-local" 
+                                name="checkIn.dataSaida" 
+                                ng-model="$ctrl.pessoaCheckIn.checkIn.dataSaida"
+                                ng-disabled="!$ctrl.pessoaCheckIn.nome">
+                    </md-input-container>
+
+                    <md-input-container flex>
+                        <md-checkbox ng-model="$ctrl.pessoaCheckIn.checkIn.adicionalVeiculo" 
+                                        aria-label="Possui Veiculo" 
+                                        ng-disabled="!$ctrl.pessoaCheckIn.nome">
+                            Possui Veiculo
+                        </md-checkbox>
+                    </md-input-container>
+                </div>
+                
+                <md-input-container flex>
+                    <label>Pessoa</label>
+                    <input type="text" name="nome" ng-model="$ctrl.pessoaCheckIn.nome">
+                </md-input-container>
+
+                
+                <div layout="row" flex="20">
+                    <md-button type="submit" class="md-raised md-primary" ng-click="$ctrl.fazerCheckIn($ctrl.pessoaCheckIn)" flex>Salvar</md-button>
+                    <md-button class="md-raised" ng-click="$ctrl.resetarFormCheckIn()" flex>Cancelar</md-button>
+                </div>
+            </div>
+        </ng-form>
+    </section>
 </div>

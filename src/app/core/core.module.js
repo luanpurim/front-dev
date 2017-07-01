@@ -1,15 +1,17 @@
 import { module } from 'angular';
-import constants from './constants'
-import config from './routeConfig'
+import routeConfig from './route.config';
 import ngRoute from 'angular-route';
 import angularMaterial from 'angular-material';
-import 'ngstorage';
+import themeConfig from "./theme.config";
+import "material_css";
+import "md_data_table/md-data-table.css";
+import mdDataTable from "angular-material-data-table";
 
 export default module('app.core.module', [
-        constants,
         ngRoute,
         angularMaterial,
-        'ngStorage'
+        mdDataTable
     ])
-    .config(config)
+    .config(routeConfig)
+    .config(themeConfig)
     .name;
