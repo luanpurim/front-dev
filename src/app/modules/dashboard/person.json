@@ -3,8 +3,8 @@
                         "telefone": 99887766, 
                         "documento": "3333", 
                         "checkIn": {
-                            "dataEntrada": "2000-02-01T12:00:00.000Z", 
-                            "dataSaida": "2000-02-02T12:00:00.000Z", 
+                            "dataEntrada": "2017-07-01T12:00:00.000Z", 
+                            "dataSaida": "2017-07-02T16:30:00.000Z", 
                             "adicionalVeiculo": true
     }
 },
@@ -13,8 +13,8 @@
                         "telefone": 99887766, 
                         "documento": "2222", 
                         "checkIn": {
-                            "dataEntrada": "2000-02-01T12:00:00.000Z", 
-                            "dataSaida": "2000-02-01T12:00:00.000Z", 
+                            "dataEntrada": "2017-06-30T12:00:00.000Z", 
+                            "dataSaida": "2017-07-02T12:00:00.000Z", 
                             "adicionalVeiculo": true
     }
 },
@@ -23,8 +23,48 @@
                         "telefone": 99887766, 
                         "documento": "123456789", 
                         "checkIn": {
-                            "dataEntrada": "2000-02-01T12:00:00.000Z", 
-                            "dataSaida": "2000-02-01T12:00:00.000Z", 
+                            "dataEntrada": "2017-06-30T12:00:00.000Z", 
+                            "dataSaida": "2017-07-02T12:0:00.000Z", 
+                            "adicionalVeiculo": false
+    }
+},
+{
+                        "nome": "Daianne", 
+                        "telefone": 12345689, 
+                        "documento": "9999", 
+                        "checkIn": {
+                            "dataEntrada": "2017-06-26T12:00:00.000Z", 
+                            "dataSaida": "2017-06-29T16:30:00.000Z", 
+                            "adicionalVeiculo": false
+    }
+},
+{
+                        "nome": "Daniel", 
+                        "telefone": 12345689, 
+                        "documento": "888", 
+                        "checkIn": {
+                            "dataEntrada": "2017-05-10T12:00:00.000Z", 
+                            "dataSaida": "2017-05-15T16:30:00.000Z", 
+                            "adicionalVeiculo": true
+    }
+},
+{
+                        "nome": "Jose", 
+                        "telefone": 598423, 
+                        "documento": "888777", 
+                        "checkIn": {
+                            "dataEntrada": "2017-06-12T12:00:00.000Z", 
+                            "dataSaida": "2017-06-22T12:30:00.000Z", 
+                            "adicionalVeiculo": false
+    }
+},
+{
+                        "nome": "Amanda", 
+                        "telefone": 987568954, 
+                        "documento": "123321", 
+                        "checkIn": {
+                            "dataEntrada": "2017-06-01T12:00:00.000Z", 
+                            "dataSaida": "2017-06-10T13:30:00.000Z", 
                             "adicionalVeiculo": true
     }
 }]

@@ -12,24 +12,56 @@ export default class dashboardController {
         this.pessoas = this.dashboardService.getPessoas();
     } 
 
-    resetarFormPessoa(){
+    /**
+     * Apaga os valores do formulario de pessoas e altera os valores 'pristine' e 'untouched' para true
+     * 
+     * @param {Form} form 
+     * @author Luan Purim
+     */
+    resetarFormPessoa(form){
         this.pessoa = undefined;
         this.showForm = false;
+        form.$setPristine();
+        form.$setUntouched();
     }
 
+    /**
+     * Apaga os valores contidos no formulario de checkin
+     * 
+     * @author Luan Purim
+     */
     resetarFormCheckIn(){
         this.pessoaCheckIn = undefined;
     }
 
-    salvarPessoa(pessoa) {
+    /**
+     * Adiciona a pessoa a lista de hospedes e resteta o formulario
+     * 
+     * @param {Pesso} pessoa 
+     * @param {Form} form 
+     * @author Luan Purim
+     */
+    salvarPessoa(pessoa, form) {
         this.pessoas.push(pessoa);
-        resetarFormPessoa();
+        this.resetarFormPessoa(form);
     }
 
-    calculaValorGasto(data){
-        return  this.dashboardService.calculaValorGasto(data);
+    /**
+     * Retorna o valor gasto pelo hospede
+     * 
+     * @param {Pessoa.checkIn} checkIn 
+     * @author Luan Purim
+     */
+    calculaValorGasto(checkIn){
+        return  this.dashboardService.calculaValorGasto(checkIn);
     }
 
+    /**
+     * Realiza filtro na tabela de hospedes atraves do nome e documento
+     * 
+     * @param {String} valor 
+     * @author Luan Purim
+     */
     filtrarPessoas(valor){   
         this.pessoas = this.pessoas.filter(({nome, documento}) => {
             let comparaNome = nome.toLowerCase().includes(valor.toLowerCase());
@@ -40,7 +72,13 @@ export default class dashboardController {
             this.pessoas = this.dashboardService.getPessoas();
         }
     }
-
+    
+    /**
+    * Realiza filtro na tabela de hospedes apenas para pessoas que estao no hotel
+    * 
+    * @param {boolean} valor 
+    * @author Luan Purim
+    */
     filtrarPessoasPresentes(valor){
         if(valor) {
             this.listarAusentes = false;
@@ -54,6 +92,13 @@ export default class dashboardController {
             this.pessoas = this.dashboardService.getPessoas();
         }       
     }
+
+    /**
+     * Realiza filtro na tabela de hospedes apenas para pessoas que nao estao no hotel
+     * 
+     * @param {boolean} valor 
+     * @author Luan Purim
+     */
 
     filtrarPessoasAusentes(valor){
         if(valor) {
@@ -69,6 +114,12 @@ export default class dashboardController {
         }
     }
 
+    /**
+     * Realiza o checkin da pessoa
+     * 
+     * @param {pessoa} pessoa 
+     * @author Luan Purim
+     */
     fazerCheckIn(pessoa) {
         for(let i = 0; i < this.pessoas.length; i++)
             if(this.pessoas[i].nome.toLowerCase() == pessoa.nome.toLowerCase()){
@@ -77,11 +128,17 @@ export default class dashboardController {
         this.resetarFormCheckIn();
     }
 
+    /**
+     * Passa os valores da pessoa selecionada para o form de check in
+     * 
+     * @param {pesso} pessoa 
+     * @author Luan Purim
+     */
     bindPessoaSelecionada(pessoa){        
         if(pessoa && pessoa.nome) {
             this.pessoaCheckIn = pessoa;
-            this.pessoaCheckIn.checkIn.dataEntrada = moment(pessoa.checkIn.dataEntrada).toDate();
-            this.pessoaCheckIn.checkIn.dataSaida = moment(pessoa.checkIn.dataSaida).toDate();
+            this.pessoaCheckIn.checkIn.dataEntrada = moment(pessoa.checkIn.dataEntrada, 'YYYY-MM-DDTHH:mm:ss').toDate();
+            this.pessoaCheckIn.checkIn.dataSaida = moment(pessoa.checkIn.dataSaida, 'YYYY-MM-DDTHH:mm:ss').toDate();
             this.pessoaCheckIn.checkIn.adicionalVeiculo = pessoa.checkIn.adicionalVeiculo;
         }
     }

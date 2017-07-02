@@ -1,0 +1,4 @@
+table.select-row tr:hover td {
+    background-color: #D3D3D3;
+    cursor: pointer
+}

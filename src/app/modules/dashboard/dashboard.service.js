@@ -24,15 +24,14 @@ class dashboardService {
         let value = 0;
         
         if(checkIn){
-            let initialDate = moment(checkIn.dataEntrada);
-            let finalDate = moment(checkIn.dataSaida);
+            let initialDate = moment(checkIn.dataEntrada, 'YYYY-MM-DDTHH:mm:ss');
+            let finalDate = moment(checkIn.dataSaida, 'YYYY-MM-DDTHH:mm:ss');
 
             while(initialDate.isSameOrBefore(finalDate)){
                 value += this.retornaValorDiaria(initialDate,checkIn.adicionalVeiculo);
                 initialDate.add(1, "days");
             }
-
-            if(finalDate.hour >= 16 && finalDate.minutes >= 30) {
+            if(finalDate.hour() >= 16 && finalDate.minutes() >= 30) {
                 value += this.retornaValorDiaria(finalDate, checkIn.adicionalVeiculo);
             }
         }
@@ -41,13 +40,13 @@ class dashboardService {
     }
 
     /**
-     * @param {any} date 
+     * @param {date} date 
      * @returns valor da diaria
      * @author Luan Purim
      */
     retornaValorDiaria(date, adicionalVeiculo) {
         let value = 0;
-        if(date.day == 0 || date.day == 6) {
+        if(date.day() == 0 || date.day() == 6) {
             value += 150;
             if(adicionalVeiculo) {value += 20}
         } else {
