@@ -1,2 +1,5 @@
 node_modules/
 app/bower_components
+dist/bundle.css
+dist/bundle.js
+dist/index.html

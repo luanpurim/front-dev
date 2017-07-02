@@ -33,7 +33,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --inline --hot --watch-poll --content-base dist --open "
+    "start": "node_modules/.bin/webpack-dev-server --inline --hot --watch-poll --content-base dist --open ",
+    "build": "webpack"
   },
   "author": "Luan Carlos Purim"
 }
