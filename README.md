@@ -1,4 +1,4 @@
-# Weather-Forecast
+# Front-end Challenge
 The app uses:
 
 - AngularJS 1.5.x
